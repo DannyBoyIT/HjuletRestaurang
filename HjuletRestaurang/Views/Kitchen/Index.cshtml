@@ -1,14 +1,26 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
 
 <h2>Index</h2>
 <div id="orders">
-    
+
 </div>
 
 @section scripts{
-    
-    <script></script>
+
+    <script src="~/signalr/js"></script>
+
+    <script>
+        $.connection.hub.start().done(function () {
+            // Reference the auto-generated proxy for the hub.  
+            var restaurantHub = $.connection.restaurantHub;
+            // Create a function that the hub can call back to display messages.
+            restaurantHub.client.addNewMessageToPage = function (order) {
+                // Add the message to the page. 
+                $('#discussion').append('<li><strong>' + htmlEncode(order.Dishes.Name) 
+                    + '</strong> </li>');
+            };
+        });
+    </script>
 }
