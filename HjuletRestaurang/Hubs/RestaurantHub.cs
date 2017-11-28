@@ -16,12 +16,6 @@ namespace HjuletRestaurang.Hubs
             _context = ApplicationDbContext.GetInstance;
         }
 
-        public void Send(string name, string message)
-        {
-            // Call the addNewMessageToPage method to update clients.
-            Clients.All.addNewMessageToPage(name, message);
-        }
-
         //Gets checked dishes from the customers clientside and creates an order. Sends the order to the kitchen client side.
         public void SendOrder(string message)
         {
