@@ -1,8 +1,10 @@
 ﻿@model List<HjuletRestaurang.Models.Dish>
 
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Menu";
 }
+
+<h2>Menu</h2>
 
 @foreach (var dish in Model)
 {
@@ -50,11 +52,11 @@
                 console.log("Done!");
             });
         });
+
         // This optional function html-encodes messages for display in the page.
         function htmlEncode(value) {
             var encodedValue = $('<div />').text(value).html();
             return encodedValue;
         }
     </script>
-
 }

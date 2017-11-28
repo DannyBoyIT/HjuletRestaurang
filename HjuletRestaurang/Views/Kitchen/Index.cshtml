@@ -1,17 +1,12 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Orders";
 }
 
-<h2>Index</h2>
-<div id="orders">
-
-</div>
+<h2>Orders</h2>
 
 <div class="container">
-    <input type="text" id="message" />
-    <input type="button" id="sendmessage" value="Send" />
-    <input type="hidden" id="displayname" />
-    <ul id="discussion"></ul>
+    <ul class="list-group" id="orderList">
+    </ul>
 </div>
 
 @section scripts{
@@ -25,8 +20,24 @@
             // Create a function that the hub can call back to display messages.
             restaurantHub.client.getOrder = function (order) {
                 console.log(order);
-                // Add the message to the page.
-                $('#discussion').append('<li><strong>' + htmlEncode(order.OrderNumber) + '</strong> </li>');
+                //Adds an li with an order and children ul and li inside it filled with dishes.
+                //Writes an li with the order number to the parent ul
+                $('#orderList').append('<li id="order-item' + order.OrderNumber + '" class="list-group-item"><strong>Order number: ' + htmlEncode(order.OrderNumber) + '</strong>');
+
+                //Gets the parent li's dynamic id.
+                var parentLiId = "order-item" + order.OrderNumber;
+                //Writes an ul to the parent li
+                $('#' + parentLiId).append('<ul id="under-list' + order.OrderNumber + '" class="list-group">');
+
+                //
+                for (var i = 0; i < order.Dishes.length; i++) {
+                    //Gets the parent ul's dynamic id.
+                    var parentUlId = "under-list" + order.OrderNumber;
+                    //Writes an li with the dish name to the parent ul
+                    $('#' + parentUlId).append('<li class="list-group-item">Dish: ' + order.Dishes[i].Name + '</li');
+                }
+                //Closes the opened ul and li
+                $('#orderList').append('</ul></li>');
             };
         });
 

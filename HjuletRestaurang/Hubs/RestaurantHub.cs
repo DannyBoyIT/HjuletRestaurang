@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using HjuletRestaurang.Data;
 using HjuletRestaurang.Models;
 using Microsoft.AspNet.SignalR;
-using Newtonsoft.Json;
 
 namespace HjuletRestaurang.Hubs
 {
@@ -45,7 +43,6 @@ namespace HjuletRestaurang.Hubs
             }
 
             _context.Orders.Add(order);
-            var orderSerializeObject = JsonConvert.SerializeObject(order);
 
             Clients.All.getOrder(order);
         }
