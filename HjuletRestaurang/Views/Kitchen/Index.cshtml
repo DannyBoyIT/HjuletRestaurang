@@ -20,35 +20,18 @@
 
     <script>
         $(function () {
-                $.connection.hub.start().done(function() {
-                // Reference the auto-generated proxy for the hub.  
-                var restaurantHub = $.connection.restaurantHub;
-                // Create a function that the hub can call back to display messages.
-                restaurantHub.client.getOrder = function (order) {
-                    console.log(order);
-                    // Add the message to the page. 
-                    $('#discussion').append('<li><strong>' + htmlEncode(order.OrderNumber) + '</strong> </li>');
-                };
-        });
-
-        $(function() {
-            // Reference the auto-generated proxy for the hub.  
+            // Reference the auto-generated proxy for the hub.
             var restaurantHub = $.connection.restaurantHub;
             // Create a function that the hub can call back to display messages.
-            restaurantHub.client.addNewMessageToPage = function(name, message) {
-                // Add the message to the page. 
-                $('#discussion')
-                    .append('<li><strong>' + htmlEncode(name) + '</strong>: ' + htmlEncode(message) + '</li>');
+            restaurantHub.client.getOrder = function (order) {
+                console.log(order);
+                // Add the message to the page.
+                $('#discussion').append('<li><strong>' + htmlEncode(order.OrderNumber) + '</strong> </li>');
             };
+        });
 
-            // Start the connection.
-            $.connection.hub.start().done(function() {
-                //$('#sendmessage').click(function () {
-                //    // Call the Send method on the hub. 
-                //    chat.server.send($('#displayname').val(), $('#message').val());
-                //    // Clear text box and reset focus for next comment. 
-                //    $('#message').val('').focus();
-                //});
+        $(function () {
+            $.connection.hub.start().done(function () {
             });
         });
 
