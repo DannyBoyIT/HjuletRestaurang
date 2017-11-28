@@ -1,12 +1,21 @@
-﻿using Microsoft.AspNet.SignalR;
+﻿using System;
+using HjuletRestaurang.Data;
+using Microsoft.AspNet.SignalR;
 
 namespace HjuletRestaurang.Hubs
 {
     public class RestaurantHub : Hub
     {
-        public void Hello(string message)
+        private ApplicationDbContext _context;
+        public RestaurantHub()
         {
-            Clients.All.hello(message);
+            _context = ApplicationDbContext.GetInstance;
+        }
+        public void SendOrder(string message)
+        {
+            //todo split message, save to context, send to Kitchen Index
+            //var guid = Guid.Parse(message);
+            Clients.All.sendOrder(message);
         }
     }
 }

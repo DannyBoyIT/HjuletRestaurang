@@ -7,5 +7,6 @@ namespace HjuletRestaurang.Repositories
 {
     public class MemoryRepository
     {
+       
     }
 }
