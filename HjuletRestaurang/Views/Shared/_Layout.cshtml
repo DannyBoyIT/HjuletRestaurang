@@ -8,7 +8,7 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -16,12 +16,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Hjulet", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <a class="navbar-brand" href="#" onclick="location.href='@Url.Action("Index","Home")'">
+                    <img alt="Logo image of Hjulet Restaurant" class="hjulet-logo" src="~/Content/Images/hjulet_logo.JPG" />
+                </a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Menu", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Kitchen", "Index", "Kitchen")</li>
+                    <li>@Html.ActionLink("Menu", "Index", new { controller = "Home"}, new { @class = "navigation-link" })</li>
+                    <li>@Html.ActionLink("Kitchen", "Index", new {controller = "Kitchen"}, new { @class = "navigation-link" })</li>
                 </ul>
             </div>
         </div>
@@ -29,14 +31,13 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        <footer class="text-center">
+            <p>&copy; @DateTime.Now.Year - Fussball Team</p>
         </footer>
     </div>
-
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-<script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>
