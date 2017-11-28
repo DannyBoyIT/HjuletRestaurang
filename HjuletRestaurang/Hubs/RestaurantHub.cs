@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using HjuletRestaurang.Data;
 using HjuletRestaurang.Models;
 using Microsoft.AspNet.SignalR;
+using Newtonsoft.Json;
 
 namespace HjuletRestaurang.Hubs
 {
@@ -15,10 +18,21 @@ namespace HjuletRestaurang.Hubs
             _context = ApplicationDbContext.GetInstance;
         }
 
+        public void Send(string name, string message)
+        {
+            // Call the addNewMessageToPage method to update clients.
+            Clients.All.addNewMessageToPage(name, message);
+        }
+
         //Gets checked dishes from the customers clientside and creates an order. Sends the order to the kitchen client side.
         public void SendOrder(string message)
         {
-            var order = new Order();
+            var order = new Order()
+            {
+                Id = Guid.NewGuid(),
+                Dishes = new List<Dish>(),
+                OrderNumber = _context.Orders.Count != 0 ? _context.Orders.OrderByDescending(o => o.OrderNumber).First().OrderNumber + 1 : 1
+            };
 
             var dishGuids = message.Split(',');
 
@@ -31,8 +45,9 @@ namespace HjuletRestaurang.Hubs
             }
 
             _context.Orders.Add(order);
+            var orderSerializeObject = JsonConvert.SerializeObject(order);
 
-            Clients.All.sendOrder(order);
+            Clients.All.getOrder(order);
         }
     }
 }
