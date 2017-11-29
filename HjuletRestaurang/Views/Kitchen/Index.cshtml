@@ -1,11 +1,11 @@
 ﻿@{
-    ViewBag.Title = "Orders";
+    ViewBag.Title = "Köket";
 }
 
 <div class="container">
     <div class="row">
         <div class="col-sm-4 col-sm-offset-4">
-            <h2 class="text-center">Orders</h2>
+            <h2 class="text-center">Köket</h2>
         </div>
     </div>
     <ul class="list-group" id="orderList"></ul>
@@ -37,7 +37,7 @@
                     //Gets the parent ul's dynamic id.
                     var parentUlId = "under-list" + order.OrderNumber;
                     //Writes an li with the dish name to the parent ul
-                    $('#' + parentUlId).append('<li class="list-group-item">Dish: ' + order.Dishes[i].Name + '</li');
+                    $('#' + parentUlId).append('<li class="list-group-item">Maträtt: ' + order.Dishes[i].Name + '</li');
                 }
 
                 //Button
