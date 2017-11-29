@@ -9,6 +9,9 @@ body .navigation-link {
   color: black;
   margin-top: 20px; }
 
-.ready {
+.glyphicon-ok {
   color: green; }
+
+.glyphicon-remove {
+  color: yellow; }
 

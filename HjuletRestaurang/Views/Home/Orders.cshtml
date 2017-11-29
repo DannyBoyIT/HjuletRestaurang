@@ -8,7 +8,7 @@
 
 @foreach (var order in Model)
 {
-    var ready = order.IsReady ? "ready":"";
-    <p class=@ready>@order.OrderNumber</p>
+    var ready = order.IsReady ? "glyphicon glyphicon-ok" : "glyphicon glyphicon-remove";
+    
+    <h4>Order: @order.OrderNumber <span class="@ready"></span></h4>
 }
-
