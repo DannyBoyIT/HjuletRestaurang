@@ -12,31 +12,52 @@
     </div>
     <table class="table table-hover">
         <thead>
-        <tr>
-            <th>Maträtt</th>
-            <th>Pris</th>
-            <th>Beställ</th>
-        </tr>
+            <tr>
+                <th>Maträtt</th>
+                <th>Pris</th>
+                <th>Beställ</th>
+            </tr>
         </thead>
         <tbody>
-        @foreach (var dish in Model)
-        {
-            <tr>
-                <td>@dish.Name</td>
-                <td><span class="badge">@dish.Price</span></td>
-                <td><input class="checkbox" type="checkbox" value=@dish.Id></td>
-            </tr>
-        }
+            @foreach (var dish in Model)
+            {
+                <tr>
+                    <td>@dish.Name</td>
+                    <td><span class="badge">@dish.Price</span></td>
+                    <td><input class="checkbox" type="checkbox" value=@dish.Id></td>
+                </tr>
+            }
         </tbody>
     </table>
-    @Html.ActionLink(" ","orders", "home", null, new {@class="glyphicon glyphicon-shopping-cart btn btn-default", id="submit"})
-   
+    <button class="glyphicon glyphicon-shopping-cart btn btn-default disabled" id="submit"/>
+
+
+
 </div>
 
 @section scripts{
     <script src="~/signalr/js"></script>
 
     <script>
+        $('.checkbox').click(function () {
+
+            var checkboxes = $(".checkbox");
+            var anyChecked = false;
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].checked) {
+                    anyChecked = true;
+                }
+            }
+            if (anyChecked) {
+                $("#submit").removeClass("disabled");
+            }
+            else {
+                $("#submit").addClass("disabled");
+            }
+
+        });
+
+        //SIGNALR
         $(function () {
             // Reference the auto-generated proxy for the hub.
             var restaurant = $.connection.restaurantHub;
@@ -51,13 +72,14 @@
                 }
 
                 for (var c = 0; c < selectedBoxes.length; c++) {
-                    checkedBoxesVal = checkedBoxesVal.concat(checkboxes[c].value);
+                    checkedBoxesVal = checkedBoxesVal.concat(selectedBoxes[c].value);
                     if (c < selectedBoxes.length - 1) {
                         checkedBoxesVal = checkedBoxesVal.concat(",");
                     }
                 }
 
                 restaurant.server.sendOrder(checkedBoxesVal);
+                window.location.href = '@Url.Content("~/home/orders")';
             });
             $.connection.hub.start().done(function () {
                 console.log("Done!");

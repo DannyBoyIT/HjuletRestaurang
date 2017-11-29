@@ -17,6 +17,9 @@
     <script src="~/signalr/js"></script>
 
     <script>
+
+       
+
         $(function () {
             // Reference the auto-generated proxy for the hub.
             var restaurantHub = $.connection.restaurantHub;
@@ -25,7 +28,7 @@
                 console.log(order);
                 //Adds an li with an order and children ul and li inside it filled with dishes.
                 //Writes an li with the order number to the parent ul
-                $('#orderList').append('<li id="order-item' + order.OrderNumber + '" class="list-group-item"><strong>Order number: ' + htmlEncode(order.OrderNumber) + '</strong>');
+                $('#orderList').append('<li id="order-item' + order.OrderNumber + '" class="list-group-item"><strong>Ordernummer: ' + htmlEncode(order.OrderNumber) + '</strong>');
 
                 //Gets the parent li's dynamic id.
                 var parentLiId = "order-item" + order.OrderNumber;
@@ -41,11 +44,21 @@
                 }
 
                 //Button
-                $('#' + parentLiId).append('<button id = "ready' + order.OrderNumber + '" class="btn btn-default">Done</button>');
+                $('#' + parentLiId).append('<button id = "ready' + order.OrderNumber + '" class="btn btn-default">Till servering</button>');
                 //Closes the opened ul and li
                 $('#orderList').append('</ul></li>'); 
             };
         });
+
+        //$(function () {
+
+        //    $('button').click(function (e) {
+
+        //        var idClicked = e.target.id;
+        //        restaurantHub.server.orderReady(idClicked)
+        //    });
+
+        //});
 
         $(function () {
             $.connection.hub.start().done(function () {
