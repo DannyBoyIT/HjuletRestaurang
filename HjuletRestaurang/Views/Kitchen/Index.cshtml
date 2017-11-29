@@ -19,6 +19,15 @@
     <script>
 
        
+            $('.serve').click(function (e) { alert("hej")});
+            $('.serve').click(function (e) {
+                console.log("Clicked");
+                var restaurantHub = $.connection.restaurantHub;
+                var idClicked = e.target.id;
+                console.log(idClicked);
+
+                restaurantHub.server.orderReady(idClicked)
+        });
 
         $(function () {
             // Reference the auto-generated proxy for the hub.
@@ -44,21 +53,13 @@
                 }
 
                 //Button
-                $('#' + parentLiId).append('<button id = "ready' + order.OrderNumber + '" class="btn btn-default">Till servering</button>');
+                $('#' + parentLiId).append('<button id = "ready' + order.Id + '" class="btn btn-default serve">Till servering</button>');
                 //Closes the opened ul and li
                 $('#orderList').append('</ul></li>'); 
             };
         });
 
-        //$(function () {
-
-        //    $('button').click(function (e) {
-
-        //        var idClicked = e.target.id;
-        //        restaurantHub.server.orderReady(idClicked)
-        //    });
-
-        //});
+      
 
         $(function () {
             $.connection.hub.start().done(function () {
