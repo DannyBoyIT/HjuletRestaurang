@@ -8,5 +8,6 @@ namespace HjuletRestaurang.Models
         public Guid Id { get; set; }
         public List<Dish> Dishes { get; set; }
         public int OrderNumber { get; set; }
+        public bool IsReady { get; set; }
     }
 }

@@ -40,5 +40,12 @@ namespace HjuletRestaurang.Hubs
 
             Clients.All.getOrder(order);
         }
+
+        public void OrderReady(string orderId)
+        {
+            var order = _context.Orders.FirstOrDefault(o => o.Id == Guid.Parse(orderId));
+            order.IsReady = true;
+            Clients.All.orderReady();
+        }
     }
 }

@@ -1,8 +1,14 @@
-﻿@model List<HjuletRestaurang.Models.Order>
+﻿@model IList<HjuletRestaurang.Models.Order>
 
 @{
     ViewBag.Title = "Orders";
 }
 
 <h2>Orders</h2>
+
+@foreach (var order in Model)
+{
+    var ready = order.IsReady ? "ready":"";
+    <p class=@ready>@order.OrderNumber</p>
+}
 

@@ -9,3 +9,6 @@ body .navigation-link {
   color: black;
   margin-top: 20px; }
 
+.ready {
+  color: green; }
+

@@ -23,7 +23,7 @@ namespace HjuletRestaurang.Controllers
 
         public ActionResult Orders()
         {
-            return View(_context.Orders);
+            return View(_context.Orders.OrderByDescending(o=>o.OrderNumber).ToList());
         }
     }
 }
