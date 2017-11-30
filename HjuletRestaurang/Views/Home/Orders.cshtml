@@ -12,3 +12,18 @@
     
     <h4>Nummer: @order.OrderNumber <span class="@ready"></span></h4>
 }
+
+@section scripts{
+    <script src="~/signalr/js"></script>
+    <script>
+        $(function () {
+            // Reference the auto-generated proxy for the hub.
+            var restaurantHub = $.connection.restaurantHub;
+            // Create a function that the hub can call back to display messages.
+            restaurantHub.client.getOrder = function (order) {
+
+
+            };
+        });
+    </script>
+    }
