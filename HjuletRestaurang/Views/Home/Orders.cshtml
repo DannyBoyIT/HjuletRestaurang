@@ -12,7 +12,7 @@
     {
         var ready = order.IsReady ? "glyphicon glyphicon-ok" : "glyphicon glyphicon-remove";
 
-        <li id="order-item-status" + @order.OrderNumber class="list-group-item"><h4>Nummer: @order.OrderNumber <span class="@ready"></span></h4></li>
+        <li id="order-item-status-@order.OrderNumber" class="list-group-item"><h4>Nummer: @order.OrderNumber</h4><span class="@ready"></span></li>
     }
 
 </ul>
@@ -22,15 +22,16 @@
 
     <script>
 
-        ////Get kitchen order status
-        //$(function() {
-        //    // Reference the auto-generated proxy for the hub.
-        //    var restaurantHub = $.connection.restaurantHub;
-        //    // Create a function that the hub can call back to display messages.
-        //    restaurantHub.client.orderReady = function (order) {
-        //        console.log("New order status confirmed!");
-        //    };
-        //});
+        //Get kitchen order status
+        $(function() {
+            // Reference the auto-generated proxy for the hub.
+            var restaurantHub = $.connection.restaurantHub;
+            // Create a function that the hub can call back to display messages.
+            restaurantHub.client.orderReady = function (order) {
+                console.log(order.OrderNumber);
+                $('#order-item-status-' + order.OrderNumber).children()[1].addClass("glyphicon glyphicon-ok").removeClass("glyphicon glyphicon-remove");
+            };
+        });
 
         //Get latest orders
         $(function () {
