@@ -44,11 +44,11 @@
                 console.log(order);
                 //Adds an li with an order and children ul and li inside it filled with dishes.
                 //Writes an li with the order number to the parent ul
-                $('#orderList').prepend('<li id="order-item-status' +
+                $('#orderList').prepend('<li id="order-item-status-' +
                     order.OrderNumber +
                     '" class="list-group-item"><h4>Nummer: ' +
                     htmlEncode(order.OrderNumber) +
-                    ' <span class="glyphicon glyphicon-remove"></span></h4></li>');
+                    ' </h4><span class="glyphicon glyphicon-remove"></span></li>');
             };
         });
 

@@ -21,6 +21,8 @@
         function statusReady(idClicked) {
             var restaurantHub = $.connection.restaurantHub;
             restaurantHub.server.orderReady(idClicked);
+            $('#order-item' + idClicked).remove();
+          
         };
 
         $(function () {
@@ -31,17 +33,17 @@
                 console.log(order);
                 //Adds an li with an order and children ul and li inside it filled with dishes.
                 //Writes an li with the order number to the parent ul
-                $('#orderList').append('<li id="order-item' + order.OrderNumber + '" class="list-group-item"><strong>Ordernummer: ' + htmlEncode(order.OrderNumber) + '</strong>');
+                $('#orderList').append('<li id="order-item' + order.Id + '" class="list-group-item"><strong>Ordernummer: ' + htmlEncode(order.OrderNumber) + '</strong>');
 
                 //Gets the parent li's dynamic id.
-                var parentLiId = "order-item" + order.OrderNumber;
+                var parentLiId = "order-item" + order.Id;
                 //Writes an ul to the parent li
-                $('#' + parentLiId).append('<ul id="under-list' + order.OrderNumber + '" class="list-group">');
+                $('#' + parentLiId).append('<ul id="under-list' + order.Id + '" class="list-group">');
 
                 //
                 for (var i = 0; i < order.Dishes.length; i++) {
                     //Gets the parent ul's dynamic id.
-                    var parentUlId = "under-list" + order.OrderNumber;
+                    var parentUlId = "under-list" + order.Id;
                     //Writes an li with the dish name to the parent ul
                     $('#' + parentUlId).append('<li class="list-group-item">Maträtt: ' + order.Dishes[i].Name + '</li');
                 }
