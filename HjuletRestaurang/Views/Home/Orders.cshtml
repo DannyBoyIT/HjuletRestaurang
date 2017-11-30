@@ -1,7 +1,7 @@
 ﻿@model IList<HjuletRestaurang.Models.Order>
 
 @{
-    ViewBag.Title = "Ordrar";
+    ViewBag.Title = "Beställningar";
 }
 
 <h2>Ordrar</h2>
@@ -10,5 +10,5 @@
 {
     var ready = order.IsReady ? "glyphicon glyphicon-ok" : "glyphicon glyphicon-remove";
     
-    <h4>Order: @order.OrderNumber <span class="@ready"></span></h4>
+    <h4>Nummer: @order.OrderNumber <span class="@ready"></span></h4>
 }
