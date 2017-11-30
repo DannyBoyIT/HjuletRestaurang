@@ -10,6 +10,7 @@
             <h2 class="text-center">Meny</h2>
         </div>
     </div>
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post)) {
     <table class="table table-hover">
         <thead>
             <tr>
@@ -24,15 +25,13 @@
                 <tr>
                     <td>@dish.Name</td>
                     <td><span class="badge">@dish.Price</span></td>
-                    <td><input class="checkbox" type="checkbox" value=@dish.Id></td>
+                    <td><input class="checkbox" type="checkbox" name="dishIds" value=@dish.Id></td>
                 </tr>
             }
         </tbody>
     </table>
-    <button class="glyphicon glyphicon-shopping-cart btn btn-default disabled" id="submit"/>
-
-
-
+    <button type="submit" class="glyphicon glyphicon-shopping-cart btn btn-default disabled" id="submit" />
+    }
 </div>
 
 @section scripts{
@@ -45,19 +44,19 @@
             var anyChecked = false;
             for (var i = 0; i < checkboxes.length; i++) {
                 if (checkboxes[i].checked) {
-                    anyChecked = true;
-                }
+                anyChecked = true;
             }
+        }
             if (anyChecked) {
                 $("#submit").removeClass("disabled");
-            }
+        }
             else {
                 $("#submit").addClass("disabled");
-            }
+        }
 
-        });
+    });
 
-        //SIGNALR
+        @*//SIGNALR
         $(function () {
             // Reference the auto-generated proxy for the hub.
             var restaurant = $.connection.restaurantHub;
@@ -84,7 +83,7 @@
             $.connection.hub.start().done(function () {
                 console.log("Done!");
             });
-        });
+        });*@
 
         // This optional function html-encodes messages for display in the page.
         function htmlEncode(value) {
