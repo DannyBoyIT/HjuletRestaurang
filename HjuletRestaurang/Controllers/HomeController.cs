@@ -47,11 +47,13 @@ namespace HjuletRestaurang.Controllers
 
             hubContext.Clients.All.getOrder(order);
 
-            return View("Orders", _context.Orders.OrderByDescending(x => x.OrderNumber).ToList());
+            return RedirectToAction("Orders", new {orderNumber = order.OrderNumber});
         }
 
-        public ActionResult Orders()
+        public ActionResult Orders(int? orderNumber)
         {
+            ViewBag.OrderNumber = orderNumber.ToString();
+
             return View(_context.Orders.OrderByDescending(o=>o.OrderNumber).ToList());
         }
     }

@@ -5,6 +5,7 @@
 }
 
 <h2>Ordrar</h2>
+<h3>Ditt ordernummer: @ViewBag.OrderNumber</h3>
 
 <ul class="list-group" id="orderList">
 
@@ -29,7 +30,8 @@
             // Create a function that the hub can call back to display messages.
             restaurantHub.client.orderReady = function (order) {
                 console.log(order.OrderNumber);
-                $('#order-item-status-' + order.OrderNumber).children()[1].addClass("glyphicon glyphicon-ok").removeClass("glyphicon glyphicon-remove");
+                var span = $('#order-item-status-' + order.OrderNumber).children()[1];
+                span.className = "glyphicon glyphicon-ok";
             };
         });
 
