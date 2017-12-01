@@ -1,4 +1,6 @@
-﻿@{
+﻿@model List<HjuletRestaurang.Models.Order>
+
+@{
     ViewBag.Title = "Köket";
 }
 
@@ -8,7 +10,22 @@
             <h2 class="text-center">Köket</h2>
         </div>
     </div>
-    <ul class="list-group" id="orderList"></ul>
+    <ul class="list-group" id="orderList">
+        @foreach (var order in Model)
+        {
+            <li id="order-item-@order.Id" class="list-group-item"><strong>Ordernummer: @order.OrderNumber</strong>
+                <ul id="under-list-@order.Id" class="list-group">
+                    
+                    @foreach (var dish in order.Dishes)
+                    {
+                        <li class="list-group-item">Maträtt: @dish.Name</li>
+                    }
+                </ul>
+                <button id="ready-@order.Id" class="btn btn-default serve" onclick="statusReady('@order.Id')">Till servering</button>
+        </li>
+        }
+
+    </ul>
 </div>
 
 
@@ -21,7 +38,7 @@
         function statusReady(idClicked) {
             var restaurantHub = $.connection.restaurantHub;
             restaurantHub.server.orderReady(idClicked);
-            $('#order-item' + idClicked).remove();
+            $('#order-item-' + idClicked).remove();
           
         };
 
@@ -33,19 +50,19 @@
                 console.log(order);
                 //Adds an li with an order and children ul and li inside it filled with dishes.
                 //Writes an li with the order number to the parent ul
-                $('#orderList').append('<li id="order-item' + order.Id + '" class="list-group-item"><strong>Ordernummer: ' + htmlEncode(order.OrderNumber) + '</strong>');
+                $('#orderList').append('<li id="order-item-' + order.Id + '" class="list-group-item"><strong>Ordernummer: ' + htmlEncode(order.OrderNumber) + '</strong>');
 
                 //Gets the parent li's dynamic id.
-                var parentLiId = "order-item" + order.Id;
+                var parentLiId = "order-item-" + order.Id;
                 //Writes an ul to the parent li
-                $('#' + parentLiId).append('<ul id="under-list' + order.Id + '" class="list-group">');
+                $('#' + parentLiId).append('<ul id="under-list-' + order.Id + '" class="list-group">');
 
                 //
                 for (var i = 0; i < order.Dishes.length; i++) {
                     //Gets the parent ul's dynamic id.
-                    var parentUlId = "under-list" + order.Id;
+                    var parentUlId = "under-list-" + order.Id;
                     //Writes an li with the dish name to the parent ul
-                    $('#' + parentUlId).append('<li class="list-group-item">Maträtt: ' + order.Dishes[i].Name + '</li');
+                    $('#' + parentUlId).append('<li class="list-group-item">Maträtt: ' + order.Dishes[i].Name + '</li>');
                 }
 
                 //Button
