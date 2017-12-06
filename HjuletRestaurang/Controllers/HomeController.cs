@@ -26,6 +26,9 @@ namespace HjuletRestaurang.Controllers
         [HttpPost]
         public ActionResult Index(List<Guid> dishIds)
         {
+            if (dishIds.Count == 0)
+                return RedirectToAction("Index");
+
             var hubContext = GlobalHost.ConnectionManager.GetHubContext<RestaurantHub>();
 
             var order = new Order()
